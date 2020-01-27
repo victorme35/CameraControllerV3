@@ -6,30 +6,36 @@ import android.text.Html;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
+import android.widget.Button;
+import android.view.View;
 
 public class MainActivity extends Activity {
-
+    Button bt;
     public WebView webView;
-
     // Création de l'activité
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bt=(Button)findViewById(R.id.button);
 
         // Instanciation du WebView
-        webView = (WebView) findViewById(R.id.webview);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Information temporaire de test(à supprimer à la convenance du développeur)
+                myToast("Chargement de la page web");
+                webView = (WebView) findViewById(R.id.webview);
+                // Effacement du cache
+                webView.clearCache(true);
+                // suppression du stockage de données dans le cache
+                webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+                // Chargement de la page web
+                webView.loadUrl(getString(R.string.page_AccesSite));
 
-        // Effacement du cache
-        webView.clearCache(true);
-        // suppression du stockage de données dans le cache
-        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            }
+        });
 
-        // Information temporaire de test(à supprimer à la convenance du développeur)
-        myToast("Chargement de la page web");
-
-        // Chargement de la page web
-        webView.loadUrl(getString(R.string.page_AccesSite));
     } // fin de onCreate
 
     @Override
